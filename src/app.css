@@ -1,0 +1,79 @@
+/* 布局：全屏 3D 画布 + 左侧展品列表 + 右侧说明卡片。只用 tokens.css 的变量。 */
+body { background: #04060b; font-size: 13px; }
+#gl { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; outline: none; }
+
+.panel {
+  position: fixed; z-index: 10; background: var(--panel); border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card); color: var(--text);
+}
+
+/* 左栏 */
+#side { left: 16px; top: 16px; bottom: 16px; width: 264px; display: flex; flex-direction: column; overflow: hidden; }
+.brand { display: flex; gap: 12px; align-items: center; padding: 18px 18px 12px; }
+.brand-mark {
+  width: 38px; height: 38px; border-radius: 11px; background: var(--primary); color: #fff;
+  display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 600; flex: none;
+}
+.brand h1 { margin: 0; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; }
+.brand p { margin: 2px 0 0; font-size: 11.5px; }
+#list { flex: 1; overflow: auto; padding: 4px 10px 16px; }
+.group-title { font-size: 11.5px; font-weight: 500; color: var(--text-3); padding: 14px 10px 6px; }
+.item {
+  display: flex; gap: 10px; align-items: center; width: 100%; border: 0; background: transparent;
+  text-align: left; padding: 8px 10px; border-radius: 12px; color: var(--text); transition: background 0.15s;
+}
+.item:hover { background: var(--hover); }
+.item.active { background: var(--primary-soft); color: var(--primary); }
+.item .ico-box {
+  width: 30px; height: 30px; border-radius: 9px; background: var(--fill); flex: none;
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+}
+.item.active .ico-box { background: var(--primary); color: #fff; }
+.item .t { font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em; }
+.item .s { font-size: 11.5px; color: var(--text-3); margin-top: 1px; }
+.item.active .s { color: var(--primary); opacity: 0.8; }
+
+/* 右栏 */
+#info {
+  right: 16px; top: 16px; width: 360px; max-height: calc(100vh - 32px); display: flex; flex-direction: column;
+  overflow: hidden; transition: transform 0.4s var(--ease-out);
+}
+.info-head { display: flex; align-items: flex-start; justify-content: space-between; padding: 18px 16px 10px 22px; }
+.eyebrow { font-size: 11.5px; color: var(--text-3); font-weight: 500; }
+#info h2 { margin: 3px 0 0; font-size: 21px; font-weight: 600; letter-spacing: -0.025em; }
+#info-body { overflow: auto; padding: 0 22px 20px; }
+#info h3 { font-size: 12.5px; font-weight: 600; color: var(--text-2); margin: 18px 0 6px; }
+#info p { line-height: 1.75; margin: 0; color: var(--text-2); font-size: 13px; }
+#info p.lead { color: var(--text); font-size: 13.5px; margin-top: 12px; }
+.quote {
+  margin-top: 10px; padding: 10px 14px; border-radius: 12px; background: var(--panel-2);
+  color: var(--text); line-height: 1.7; font-size: 13px;
+}
+.quote cite { display: block; font-style: normal; color: var(--text-3); font-size: 11.5px; margin-top: 4px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.actions:empty { display: none; }
+.state { margin-top: 10px; font-size: 12px; color: var(--text-3); display: flex; align-items: center; gap: 7px; min-height: 0; }
+.state:empty { display: none; }
+.state::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+
+#info.collapsed #info-body { display: none; }
+#info.collapsed #info-toggle svg { transform: rotate(180deg); }
+
+.hint {
+  position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 5;
+  font-size: 12px; color: rgba(255, 255, 255, 0.45); pointer-events: none; white-space: nowrap;
+}
+.loading { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 20; pointer-events: none; transition: opacity 0.3s; }
+.loading.done { opacity: 0; }
+
+/* 窄屏：列表变成顶部横向滚动条，说明卡片贴底 */
+@media (max-width: 760px) {
+  #side { left: 8px; right: 8px; top: 8px; bottom: auto; width: auto; border-radius: 16px; }
+  .brand { display: none; }
+  #list { display: flex; gap: 6px; overflow-x: auto; overflow-y: hidden; padding: 8px; }
+  .group-title { display: none; }
+  .item { flex: none; width: auto; padding: 6px 12px 6px 6px; }
+  .item .s { display: none; }
+  #info { left: 8px; right: 8px; top: auto; bottom: 8px; width: auto; max-height: 46vh; border-radius: 16px; }
+  .hint { display: none; }
+}

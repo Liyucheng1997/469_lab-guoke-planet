@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>果克星球科技馆</title>
+  <link rel="stylesheet" href="/src/tokens.css" />
+  <link rel="stylesheet" href="/src/app.css" />
+</head>
+<body>
+  <canvas id="gl"></canvas>
+
+  <aside id="side" class="panel">
+    <header class="brand">
+      <div class="brand-mark">果</div>
+      <div>
+        <h1>果克星球科技馆</h1>
+        <p class="muted">据张祥前《果克星球奇遇》想象复原</p>
+      </div>
+    </header>
+    <nav id="list"></nav>
+  </aside>
+
+  <section id="info" class="panel">
+    <div class="info-head">
+      <div>
+        <div id="info-chapter" class="eyebrow"></div>
+        <h2 id="info-title"></h2>
+      </div>
+      <button id="info-toggle" class="icon-btn" title="收起说明" aria-label="收起说明">
+        <svg width="16" height="16" viewBox="0 0 16 16"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div id="info-body">
+      <div id="actions" class="actions"></div>
+      <div id="state" class="state"></div>
+      <p id="info-summary" class="lead"></p>
+      <h3>书里怎么说它的原理</h3>
+      <p id="info-principle"></p>
+      <div id="info-quotes"></div>
+      <h3>建模说明</h3>
+      <p id="info-model" class="muted"></p>
+    </div>
+  </section>
+
+  <div id="hint" class="hint">拖动旋转 · 滚轮缩放 · 右键平移</div>
+  <div id="loading" class="loading"><div class="spinner"></div></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
